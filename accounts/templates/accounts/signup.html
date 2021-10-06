@@ -1,0 +1,25 @@
+{%extends 'base.html'%}
+{%block content%}
+
+<h1>Sign Up!</h1>
+{% if error %}
+<b><i style="color:orange">{{error}}</i></b>
+{%endif%}
+<form method="POST" action="{%url 'signup'%}">{% csrf_token %}
+    Username:
+    <br />
+    <input type="text" name="username" pattern=".{3,}" required title="3 characters/numbers minimum"/>
+    <br />
+    Password:
+    <br />
+    <input type="password" name="password1" pattern=".{3,}" required title="5 characters/numbers minimum"/>
+    <br />
+    Confirm Password:
+    <br />
+    <input type="password" name="password2" />
+    <br />
+    <br />
+    <input class="buttom btn-outline-primary" type="submit" value="Sign Up" />
+</form>
+
+{%endblock%}
