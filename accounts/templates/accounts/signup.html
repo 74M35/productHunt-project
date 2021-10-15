@@ -3,23 +3,58 @@
 
 <h1>Sign Up!</h1>
 {% if error %}
-<b><i style="color:orange">{{error}}</i></b>
+<b><i style="color:orange">{{error|linebreaksbr}}</i></b>
 {%endif%}
-<form method="POST" action="{%url 'signup'%}">{% csrf_token %}
-    Username:
-    <br />
-    <input type="text" name="username" pattern=".{3,}" required title="3 characters/numbers minimum"/>
-    <br />
-    Password:
-    <br />
-    <input type="password" name="password1" pattern=".{3,}" required title="5 characters/numbers minimum"/>
-    <br />
-    Confirm Password:
-    <br />
-    <input type="password" name="password2" />
-    <br />
-    <br />
-    <input class="buttom btn-outline-primary" type="submit" value="Sign Up" />
-</form>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+    // do not allow users to enter spaces:
+    $(  ".demo-input" ).on({
+    keydown: function(event) {
+    if (event.which === 32)
+    return false;
+    },
+    // if a space copied and pasted in the input field, replace it (remove it):
+    change: function() {
+    this.value = this.value.replace(/\s/g, "");
+    }
+    });
+    });
+</script>
+<div class="row align-items-center">
+    <div class="col-md-auto">
+        <form method="POST" action="{%url 'signup'%}">{% csrf_token %}
+            Username:
+            <br />
+            <input type="text" name="username" class="demo-input"/>
+            <br />
+            Password:
+            <br />
+            <input type="password" name="password1"/>
+            <br />
+            Confirm Password:
+            <br />
+            <input type="password" name="password2" />
+            <br />
+            <br />
+            <input class="btn btn-dark" type="submit" value="Sign Up" />
+        </form>
+    </div>
+    <div class="col-md-auto">
+        Your username must only contain: <br />
+        <ul>
+            <li> Alphanumeric characters (a-z)(0-9)
+            <li> - _ and .
+        </ul>
+        Your password must have at least:
+        <ul> 
+            <li>Six characters
+            <li>One number
+            <li>One capital
+            <li>One lowercase
+            <li>One special chacracter (@$!%*?&)
+        </ul>
+    </div>
+</div>
 
 {%endblock%}
