@@ -1,6 +1,44 @@
 {%extends 'base.html'%}
 {%block content%}
 
-login!
+<h1>Login</h1>
+{% if error %}
+<b><i style="color:orange">{{error|linebreaksbr}}</i></b>
+{%endif%}
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+    // do not allow users to enter spaces:
+    $(  ".demo-input" ).on({
+    keydown: function(event) {
+    if (event.which === 32)
+    return false;
+    },
+    // if a space copied and pasted in the input field, replace it (remove it):
+    change: function() {
+    this.value = this.value.replace(/\s/g, "");
+    }
+    });
+    });
+</script>
+        <form method="POST" action="{%url 'login'%}">{% csrf_token %}
+            Username:
+            <br />
+            <input type="text" name="username" class="demo-input"/>
+            <br />
+            Password:
+            <br />
+            <input type="password" name="password"/>
+            <br />
+            <br />
+            <input class="btn btn-dark" type="submit" value="Login" />
+        </form>
+        <br />
+        <form action="{%url 'signup'%}">
+            <p> No user account? <br> <button type="submit" class="btn btn-dark">Sign Up</button></p>
+        </form>
+        
+        
+</div>
 
 {%endblock%}

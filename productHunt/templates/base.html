@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>James Speller</title>
+    <title>James Speller - Product Hunt</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/album/">
 
@@ -45,8 +45,15 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ms-auto">
-              <a class="nav-link" href="">Sign Up</a>
-              <a class="nav-link" href="">Login</a>
+              {%if user.is_authenticated%}
+              <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
+              <form id="logout" method="POST" action="{%url 'logout'%}">{% csrf_token %}
+                <input type="hidden">
+              </form>
+              {%else%}
+              <a class="nav-link" href="{%url 'signup'%}">Sign Up</a>
+              <a class="nav-link" href="{%url 'login'%}">Login</a>
+              {%endif%}
             </div>
         </div>
     </div>
