@@ -12,7 +12,17 @@
         <img src="{{product.image.url}}" class="img-fluid"/>
     </div>
     <div class="col-4">
+        {% if user == product.hunter %}
+        <a href="javascript:{document.getElementById('upvote{{product.id}}').submit()}"><button class="btn btn-secondary btn-lg btn-block">This is your post <span class="oi oi-caret-top"></span> {{product.votesTotal}}</button></a>
+        {%elif user in product.voters.all%}
+        <a href="javascript:{document.getElementById('upvote').submit()}"><button class="btn btn-success btn-lg btn-block"><span class="oi oi-caret-top"></span> Upvote {{product.votesTotal}}</button></a>
+        {%else%}
         <a href="javascript:{document.getElementById('upvote').submit()}"><button class="btn btn-primary btn-lg btn-block"><span class="oi oi-caret-top"></span> Upvote {{product.votesTotal}}</button></a>
+        {%endif%}
+        <br />
+        {% if error %}
+        <b><i style="color:orange">{{error|linebreaksbr}}</i></b>
+        {%endif%}
     </div>
 </div>
 

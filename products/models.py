@@ -9,6 +9,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to="images/")
     votesTotal = models.IntegerField(default=1)
     hunter = models.ForeignKey(User, on_delete=models.CASCADE)
+    voters = models.ManyToManyField(User, related_name="voters")
 
     def __str__(self):
         return self.title
@@ -23,3 +24,7 @@ class Product(models.Model):
             suffix = ["st ", "nd ", "rd "][date % 10 - 1]
         properDate = self.pubDate.strftime('%B %e') + suffix + self.pubDate.strftime('%Y')
         return properDate
+
+class Vote(models.Model):
+    voter = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
