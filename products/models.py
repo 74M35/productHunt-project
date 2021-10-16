@@ -7,7 +7,6 @@ class Product(models.Model):
     body = models.TextField()
     url = models.TextField()
     image = models.ImageField(upload_to="images/")
-    icon = models.ImageField(upload_to="images/")
     votesTotal = models.IntegerField(default=1)
     hunter = models.ForeignKey(User, on_delete=models.CASCADE)
 

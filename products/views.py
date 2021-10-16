@@ -20,7 +20,6 @@ def create(request):
                 product.url = request.POST['url']
             else:
                 product.url = "http://" + request.POST['url']
-            product.icon = request.FILES['icon']
             product.image = request.FILES['image']
             product.pubDate = timezone.datetime.now()
             product.hunter = request.user
