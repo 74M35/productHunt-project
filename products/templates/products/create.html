@@ -1,0 +1,50 @@
+{%extends 'base.html'%}
+{%block content%}
+
+<h1>Create</h1>
+{% if error %}
+<b><i style="color:orange">{{error|linebreaksbr}}</i></b>
+{%endif%}
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+    // do not allow users to enter spaces:
+    $(  ".demo-input" ).on({
+    keydown: function(event) {
+    if (event.which === 32)
+    return false;
+    },
+    // if a space copied and pasted in the input field, replace it (remove it):
+    change: function() {
+    this.value = this.value.replace(/\s/g, "");
+    }
+    });
+    });
+</script>
+        <form method="POST" action="{%url 'create'%}" enctype="multipart/form-data">{% csrf_token %}
+            Title:
+            <br />
+            <input type="text" name="title" class="demo-input"/>
+            <br />
+            Body:
+            <br />
+            <input type="textbox" name="body"/>
+            <br />
+            URL:
+            <br />
+            <input type="text" name="url" class="demo-input"/>
+            <br />
+            Icon:
+            <br />
+            <input type="file" name="icon" class="demo-input"/>
+            <br />
+            Image:
+            <br />
+            <input type="file" name="image" class="demo-input"/>
+            <br />
+            <br />
+            <input class="btn btn-dark" type="submit" value="Add Product" />
+        </form>
+</div>
+
+{%endblock%}
